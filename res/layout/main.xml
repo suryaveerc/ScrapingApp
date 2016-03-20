@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.gpadcat.MainActivity">
+
+    <Button
+            android:id="@+id/buttonSelectCSV"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="58dp"
+            android:text="Select CSV"
+            android:onClick="handleSelectCSVClick"/>
+
+    <Button
+            android:id="@+id/buttonViewCSV"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/buttonSelectCSV"
+            android:layout_marginEnd="50dp"
+            android:text="View CSV"/>
+
+    <Button
+            android:id="@+id/buttonStartScrapping"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/buttonSelectCSV"
+            android:layout_alignRight="@+id/buttonSelectCSV"
+            android:layout_below="@+id/buttonSelectCSV"
+            android:layout_marginTop="34dp"
+            android:text="Start Scrapping"
+            android:onClick="handleStartScrappingClick"/>
+
+    <Button
+            android:id="@+id/buttonViewXML"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/buttonViewCSV"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="34dp"
+            android:text="View XML"/>
+
+    <Button
+            android:id="@+id/buttonAnalyze"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/buttonViewXML"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/buttonViewXML"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="34dp"
+            android:text="Analyze"/>
+
+    <Button
+            android:id="@+id/buttonSaveXML"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buttonAnalyze"
+            android:layout_alignBottom="@+id/buttonAnalyze"
+            android:layout_alignLeft="@+id/buttonStartScrapping"
+            android:layout_alignRight="@+id/buttonStartScrapping"
+            android:text="Save XML"/>
+
+    <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/buttonSelectCSV"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/buttonViewCSV"
+            android:layout_marginTop="23dp"
+            android:text="TextView"/>
+
+</RelativeLayout>

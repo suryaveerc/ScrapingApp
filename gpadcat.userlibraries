@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="org.jsoup:jsoup:1.8.3">
+    <archive path="E:/IDEA_Project/gpadcat/lib/jsoup-1.8.3.jar" />
+  </library>
+</eclipse-userlibraries>
+
