@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.analyze.AnalysisFacade;
-import com.analyze.ParseXML;
 import com.scrape.GenerateXML;
 import com.scrape.ScrapeMain;
 
@@ -37,6 +36,7 @@ public class MyActivity extends Activity {
 
     public void handleSelectCSVClick(View arg0) {
         Button btn = (Button) arg0;
+
         Intent myIntent = new Intent(this, FileChooser.class);
 
 

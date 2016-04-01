@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".FileChooser"/>
-        <activity android:name=".AnalysisUI"/>
+        <activity android:name=".AnalysisUI" android:screenOrientation="landscape"/>
+        <activity android:name="org.achartengine.GraphicalActivity"/>
     </application>
 </manifest>

@@ -1,17 +1,21 @@
 package com.gpadcat;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.*;
 import com.analyze.AnalysisFacade;
 import com.models.ScrappedModel;
-import org.afree.chart.ChartFactory;
-import org.afree.chart.AFreeChart;
+import org.achartengine.chart.BarChart;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -20,11 +24,7 @@ import java.util.Iterator;
  */
 public class AnalysisUI extends Activity {
 
-    ArrayList<CheckBox> checkBoxes;
-    ScrappedModel scrappedModel;
-    HashMap<String, ArrayList<String>> scrappedData;
-    AnalysisFacade analysisFacade;
-    ArrayList<String> stringKeys = new ArrayList<String>() {{
+    static ArrayList<String> stringKeys = new ArrayList<String>() {{
         add("contentRating");
         add("numDownloads");
         add("operatingSystems");
@@ -32,6 +32,10 @@ public class AnalysisUI extends Activity {
         add("AppName");
         add("Url");
     }};
+    ArrayList<CheckBox> checkBoxes;
+    ScrappedModel scrappedModel;
+    HashMap<String, ArrayList<String>> scrappedData;
+    AnalysisFacade analysisFacade;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,30 +64,41 @@ public class AnalysisUI extends Activity {
             cb.setText(name);
             tbrow.addView(cb);
             ll.addView(tbrow);
-
             checkBoxes.add(cb);
         }
-        analysisFacade = AnalysisFacade.getInstance();
         scrappedData = analysisFacade.getScrappedModel();
-
+        System.out.println("!!!!!!!!!!!!!!!!!!" + scrappedData.toString());
     }
 
     public void handleBarChartClick(View arg0) {
+
+       /* BarChartView barChartView = new BarChartView(this, checkBoxes);
+        FrameLayout flChart = (FrameLayout) findViewById(R.id.flChart);
+        flChart.addView(barChartView);*/
+        //ChartFrame frame = new ChartFrame("Bar Chart for Apps", chart);
+        openChart();
+    }
+
+    private void openChart() {
+
+        String title = "";
         ArrayList<ArrayList<String>> selectedCheckBoxes = new ArrayList<>();
         ArrayList<String> dataPoints = new ArrayList<>();
         int tag = -1; //keep track of string key
         int selectedCount = 0;
-        String title = "";
+
         Iterator itr = checkBoxes.iterator();
+        System.out.println("In CategoryDS Start" + checkBoxes.size());
         for (CheckBox cb : checkBoxes) {
-            if (cb.isSelected()) {
+            if (cb.isChecked()) {
+                System.out.println("CHECKED: " + cb.getText().toString());
                 if (stringKeys.contains(cb.getText().toString()))
                     tag = selectedCount;
                 selectedCheckBoxes.add(scrappedData.get(cb.getText().toString()));
                 System.out.println("Adding: " + cb.getText());
                 dataPoints.add(cb.getText().toString());
                 title = title.concat(cb.getText().toString()).concat(" vs ");
-                System.out.println(title);
+                System.out.println("Title: " + title);
                 selectedCount++;
             }
         }
@@ -92,30 +107,71 @@ public class AnalysisUI extends Activity {
         System.out.println("Tag= " + tag + " SelectedCount= " + selectedCount);
         System.out.println("Datapoints before: " + selectedCheckBoxes);
         int totalValues = selectedCheckBoxes.get(0).size();
-        if (tag >= 0) {
+    /*    if (tag >= 0) {
             Collections.swap(selectedCheckBoxes, tag, selectedCount - 1);
             Collections.swap(dataPoints, tag, selectedCount - 1);
-        }
+        }*/
 
 
-        System.out.println("Datapoints after: " + selectedCheckBoxes);
-        // ArrayList<Integer> applicationParamInteger = new ArrayList<Integer>();
-
-
-        // TODO add your handling code here:
-
-        DefaultCategoryDataset ds = new DefaultCategoryDataset();
+        double[] ratings = new double[totalValues];
+        String appName[] = new String[totalValues];
         System.out.println(totalValues);
         for (int k = 0; k < totalValues; k++) {
             System.out.println(selectedCheckBoxes.get(0).get(k) + "***");
             System.out.println(selectedCheckBoxes.get(1).get(k));
-            ds.setValue(Double.parseDouble(selectedCheckBoxes.get(0).get(k)), "Downloads", selectedCheckBoxes.get(1).get(k));
+            ratings[k] = Double.parseDouble(selectedCheckBoxes.get(1).get(k));
+            appName[k] = selectedCheckBoxes.get(0).get(k);
+            //dataset.addValue(Double.parseDouble(selectedCheckBoxes.get(1).get(k)), "Ratings", selectedCheckBoxes.get(0).get(k));
         }
 
-        JFreeChart chart = ChartFactory.createBarChart(title, dataPoints.get(1), dataPoints.get(0), ds, PlotOrientation.HORIZONTAL, false, true, false);
-        CategoryPlot p = chart.getCategoryPlot();
-        p.setRangeGridlinePaint(Color.BLACK);
-        //ChartFrame frame = new ChartFrame("Bar Chart for Apps", chart);
-        ChartPanel CP = new ChartPanel(chart);
+
+        // Creating an  XYSeries for Income
+        XYSeries ratingsSeries = new XYSeries("ratings");
+        // Creating an  XYSeries for Expense
+        XYSeries expenseSeries = new XYSeries("Expense");
+        // Adding data to Income and Expense Series
+        for (int i = 0; i < ratings.length; i++) {
+            ratingsSeries.add(i, ratings[i]);
+
+        }
+
+        // Creating a dataset to hold each series
+
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        // Adding Income Series to the dataset
+        dataset.addSeries(ratingsSeries);
+
+        // Creating XYSeriesRenderer to customize incomeSeries
+        XYSeriesRenderer ratingsRenderer = new XYSeriesRenderer();
+        ratingsRenderer.setColor(Color.rgb(130, 130, 230));
+        ratingsRenderer.setFillPoints(true);
+        ratingsRenderer.setLineWidth(1);
+        ratingsRenderer.setDisplayChartValues(true);
+
+
+        // Creating a XYMultipleSeriesRenderer to customize the whole chart
+        XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
+        multiRenderer.setXLabels(0);
+        multiRenderer.setChartTitle("Rating vs AppName");
+        multiRenderer.setYTitle("Rating");
+        multiRenderer.setXTitle("ApName");
+        multiRenderer.setBarSpacing(.5);
+        multiRenderer.setZoomButtonsVisible(true);
+        for (int i = 0; i < appName.length; i++) {
+            multiRenderer.addXTextLabel(i, appName[i]);
+        }
+
+        // Adding incomeRenderer and expenseRenderer to multipleRenderer
+        // Note: The order of adding dataseries to dataset and renderers to multipleRenderer
+        // should be same
+        multiRenderer.addSeriesRenderer(ratingsRenderer);
+
+
+        // Creating an intent to plot bar chart using dataset and multipleRenderer
+        Intent intent = org.achartengine.ChartFactory.getBarChartIntent(getBaseContext(), dataset, multiRenderer, BarChart.Type.HEAPED);
+
+        // Start Activity
+        startActivity(intent);
+
     }
 }

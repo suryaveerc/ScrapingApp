@@ -16,5 +16,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.jsoup:jsoup:1.8.3" level="project" />
+    <orderEntry type="library" name="afreechart-0.0.4" level="project" />
+    <orderEntry type="library" name="achartengine-1.2.0" level="project" />
   </component>
 </module>
