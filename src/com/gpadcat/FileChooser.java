@@ -27,6 +27,7 @@ public class FileChooser extends ListActivity {
             Log.d("debug", String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
         }
         Intent intent = getIntent();
+
         currentDir = new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
         fill(currentDir);
     }
@@ -40,7 +41,7 @@ public class FileChooser extends ListActivity {
             for (File ff : dirs) {
                 if (ff.isDirectory())
                     dir.add(new Option(ff.getName(), "Folder", ff.getAbsolutePath()));
-                else if (ff.getName().endsWith(".csv")) {
+                else if (ff.getName().endsWith(".csv") || ff.getName().endsWith(".xml")) {
                     fls.add(new Option(ff.getName(), "File Size: " + ff.length(), ff.getAbsolutePath()));
                 }
             }
@@ -70,7 +71,7 @@ public class FileChooser extends ListActivity {
     }
 
     private void onFileClick(Option o) {
-        Toast.makeText(this, "File Clicked: " + o.getPath(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "File Clicked: " + o.getPath(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
         intent.putExtra("MESSAGE", o.getPath());
         setResult(2, intent);

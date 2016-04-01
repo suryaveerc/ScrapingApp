@@ -16,5 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".FileChooser"/>
+        <activity android:name=".AnalysisUI"/>
     </application>
 </manifest>
