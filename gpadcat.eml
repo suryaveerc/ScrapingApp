@@ -5,5 +5,7 @@
 	<contentEntry url="file://$MODULE_DIR$"/>
 	<levels>
 		<level name="org.jsoup:jsoup:1.8.3" value="project"/>
+		<level name="afreechart-0.0.4" value="project"/>
+		<level name="achartengine-1.2.0" value="project"/>
 	</levels>
 </component>

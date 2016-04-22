@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <eclipse-userlibraries>
+  <library name="achartengine-1.2.0">
+    <archive path="E:/IDEA_Project/gpadcat/lib/achartengine-1.2.0.jar" />
+  </library>
+  <library name="afreechart-0.0.4">
+    <archive path="E:/IDEA_Project/gpadcat/lib/afreechart-0.0.4.jar" />
+  </library>
   <library name="org.jsoup:jsoup:1.8.3">
     <archive path="E:/IDEA_Project/gpadcat/lib/jsoup-1.8.3.jar" />
   </library>
