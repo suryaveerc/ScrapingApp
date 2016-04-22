@@ -4,17 +4,15 @@ package com.scrape;
  * Created by chauh on 2016-03-31.
  */
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 //import org.jsoup.select.Elements;
-import com.scrape.GenerateXML;
 
 public class ScrapeWebUrl {
 

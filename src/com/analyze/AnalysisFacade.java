@@ -9,11 +9,9 @@ package com.analyze;
  * and open the template in the editor.
  */
 
-import java.io.File;
-import java.util.Map;
-
 import com.models.ScrappedModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 

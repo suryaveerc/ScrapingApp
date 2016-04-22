@@ -1,12 +1,12 @@
 package com.scrape;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-//import java.util.Iterator;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
-import com.scrape.ScrapeWebUrl;
+//import java.util.Iterator;
 
 public class ScrapeMain {
 
